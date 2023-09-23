@@ -1,0 +1,30 @@
+# Setup 
+In the command line go to the directory where files are located and run 'docker-compose up -d'
+
+# Apache Nifi
+After giving one or two minutes for Nifi to setup, go to https://localhost:8443/nifi/login, skip the warning, and login with:
+User: user
+Password: user123456789
+After logging in, you should see two processor groups. Otherwise, right click anywhere and upload template provided in the flows directory. Then drag the template icon from the top and choose final_flow. You will see two groups, one responsible for ingestion of data for visualisation and the other for ingestion of data for machine learning model. The flows are not meant to be re-run as they will stack up the data on top of the one that is already in the database, but if MySQL tables will be emptied, then it can be done.
+
+# MySQL
+To check ingested data go to http://localhost:8080/?server=scc413-mysqldb and login with:
+Server: scc413-mysqldb
+Username: root
+Password: example
+You should see us_census database. Inside of it there are 3 tables, 'data' with general data for visualisation, 'earning_data' that will be an input in a machine learning model, and 'predictions' which is the output of the machine learning model.
+
+# Apache Spark
+To run Apache Spark script you need to first get into the terminal of apache spark container, you can do it by running command
+for /f %i in ('docker ps -aqf "name=spark"') do docker exec -it %i /bin/bash
+in Windows commandline. Then to run the script you need to install numpy, so when you're inside do:
+pip install numpy
+Lastly to run the script of making a machine learning model and predictions, and then saving it to MySQL table run:
+spark-submit --master local[*] --name MyPySparkApp models/spark_code.py
+It will take few minutes, after that you can exit as the predictions are saved in database.
+
+# Grafana
+To see the dashboard you need to go to: http://localhost:3000/ and login with:
+Username: admin
+Password: admin
+You can skip setting up the new password. In the browse section you should see then US Census dashboard, alternatively you can go to: http://localhost:3000/d/2SUxkfLVz/us-census?orgId=1 or upload the dashboard from the .JSON file in this directory (US Census-1682536699768).

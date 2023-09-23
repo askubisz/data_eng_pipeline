@@ -1,0 +1,4 @@
+2023-04-28 09:40:11,618 INFO [main] o.a.n.a.single.user.SingleUserAuthorizer Initializing Authorizer
+2023-04-28 09:40:11,973 INFO [main] o.a.n.a.FileUserGroupProvider Users/Groups file loaded at Fri Apr 28 09:40:11 UTC 2023
+2023-04-28 09:40:13,433 INFO [main] o.a.n.a.FileAccessPolicyProvider Authorizations file loaded at Fri Apr 28 09:40:13 UTC 2023
+2023-04-28 09:40:13,438 INFO [main] o.a.n.a.single.user.SingleUserAuthorizer Configuring Authorizer

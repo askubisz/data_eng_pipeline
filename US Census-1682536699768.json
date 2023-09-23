@@ -1,0 +1,1359 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_MYSQL",
+      "label": "MySQL",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "barchart",
+      "name": "Bar chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.5.22"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph (old)",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1682536486911,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "description": "Change variables above",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "noValue": "Wrong input",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyUSD"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/^Prediction$/",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  prediction as Prediction\nFROM predictions\nWHERE sex=$Sex AND agep=$Age AND schl=$Education AND mar=$Marital_status",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "earning_data",
+          "timeColumn": "time",
+          "where": []
+        }
+      ],
+      "title": "Predicted salary for input variables",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 0,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 5
+      },
+      "id": 16,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.86,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Year",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  STR_TO_DATE(CONCAT(yoep, '-01-01'), '%Y-%m-%d') AS 'Year',\r\n  AVG(agep) as 'Average age'\r\nFROM data\r\nGROUP BY year;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Average age",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "min": 25,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 5
+      },
+      "id": 3,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 1,
+        "groupWidth": 0.65,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 3
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Year",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  cast(yoep as char) as Year,\r\n  AVG(CASE WHEN sex = '1' THEN agep END) AS 'Men',\r\n  AVG(CASE WHEN sex = '2' THEN agep END) AS 'Women'\r\nFROM data\r\nWHERE agep>0\r\nGROUP BY year;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "agep"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "avg(agep)"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "yoep",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Average age per gender",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 13
+      },
+      "id": 9,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 1,
+        "groupWidth": 0.65,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 3
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Year",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\r\n  cast(yoep as char) as Year,\r\n  AVG(CASE WHEN sex = '1' AND mil = 1 THEN 1 ELSE 0 END) AS \"Men\",\r\n  AVG(CASE WHEN sex = '2' AND mil = 1 THEN 1 ELSE 0 END) AS \"Women\"\r\nFROM data\r\nGROUP BY Year;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "agep"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "avg(agep)"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "yoep",
+          "timeColumnType": "str",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Proportion of men and women that are on active duty in military per year",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ffffff",
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "max": 30,
+          "min": 20,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "m"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 13
+      },
+      "id": 8,
+      "options": {
+        "displayMode": "basic",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  SUM(CASE WHEN yoep = '2011' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2011' AND jwmnp != 0 THEN jwmnp END) AS '2011',\r\n  SUM(CASE WHEN yoep = '2012' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2012' AND jwmnp != 0 THEN jwmnp END) AS '2012',\r\n  SUM(CASE WHEN yoep = '2013' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2013' AND jwmnp != 0 THEN jwmnp END) AS '2013',\r\n  SUM(CASE WHEN yoep = '2014' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2014' AND jwmnp != 0 THEN jwmnp END) AS '2014',\r\n  SUM(CASE WHEN yoep = '2015' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2015' AND jwmnp != 0 THEN jwmnp END) AS '2015',\r\n  SUM(CASE WHEN yoep = '2016' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2016' AND jwmnp != 0 THEN jwmnp END) AS '2016',\r\n  SUM(CASE WHEN yoep = '2017' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2017' AND jwmnp != 0 THEN jwmnp END) AS '2017',\r\n  SUM(CASE WHEN yoep = '2018' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2018' AND jwmnp != 0 THEN jwmnp END) AS '2018',\r\n  SUM(CASE WHEN yoep = '2019' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2019' AND jwmnp != 0 THEN jwmnp END) AS '2019',\r\n  SUM(CASE WHEN yoep = '2020' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2020' AND jwmnp != 0 THEN jwmnp END) AS '2020',\r\n  SUM(CASE WHEN yoep = '2021' AND jwmnp != 0 THEN jwmnp ELSE 0 END) / COUNT(CASE WHEN yoep = '2021' AND jwmnp != 0 THEN jwmnp END) AS '2021'\r\nFROM data\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "agep"
+                ],
+                "type": "column"
+              },
+              {
+                "params": [
+                  "avg"
+                ],
+                "type": "aggregate"
+              },
+              {
+                "params": [
+                  "avg(agep)"
+                ],
+                "type": "alias"
+              }
+            ]
+          ],
+          "table": "data",
+          "timeColumn": "yoep",
+          "timeColumnType": "int",
+          "where": [
+            {
+              "name": "$__unixEpochFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Average travel time to work per year",
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "fill": 1,
+      "fillGradient": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 12,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.22",
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  STR_TO_DATE(CONCAT(yoep, '-01-01'), '%Y-%m-%d') AS 'year',\r\n  AVG(grntp) AS 'Average gross rent'\r\nFROM data\r\nWHERE grntp > 0\r\nGROUP BY year\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Average gross rent per year",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:198",
+          "format": "currencyUSD",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:199",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "fill": 1,
+      "fillGradient": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 13,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.22",
+      "pointradius": 2,
+      "points": true,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  STR_TO_DATE(CONCAT(yoep, '-01-01'), '%Y-%m-%d') AS 'year',\r\n  AVG(grpip) AS 'Average gross percentage'\r\nFROM data\r\nWHERE grntp > 0\r\nGROUP BY year\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Average gross rent as a percentage of household income",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:198",
+          "format": "percent",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:199",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 1,
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 29
+      },
+      "id": 15,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.86,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n  STR_TO_DATE(CONCAT(yoep, '-01-01'), '%Y-%m-%d') AS 'Year',\r\n  SUM(mar = 1) / COUNT(*) as Proportion\r\nFROM data\r\nGROUP BY year;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Average percentage of married people",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 25,
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 29
+      },
+      "id": 17,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.22",
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT edu as Education, AVG(grpip) AS 'Average rent as percentage of income'\r\nFROM (\r\n  SELECT schl,\r\n    CASE\r\n      WHEN schl < 16 THEN '0'\r\n      WHEN schl BETWEEN 16 AND 19 THEN 'High school'\r\n      WHEN schl BETWEEN 20 AND 21 THEN 'Bachelor''s'\r\n      WHEN schl BETWEEN 22 AND 23 THEN 'Master''s'\r\n      WHEN schl = 24 THEN 'Doctorate'\r\n    END AS edu,\r\n    grpip\r\n  FROM data\r\n) AS edu_grpip\r\nWHERE edu != '0'\r\nGROUP BY edu\r\nORDER BY FIELD(edu, 'high school', 'bachelor''s', 'master''s', 'doctorate');",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Average gross rent as a percentage of household income per educational level",
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
+      "id": 19,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT hhlanp_mapped, \r\n       CAST(count_per_code AS FLOAT)/6766 AS proportion\r\nFROM (\r\n  SELECT hhlanp_mapped, \r\n         SUM(count_per_code) AS count_per_code\r\n  FROM (\r\n    SELECT yoep,\r\n           CASE\r\n             WHEN hhlanp = '1200' THEN 'Spanish'\r\n             WHEN hhlanp = '1970' THEN 'Chinese'\r\n             WHEN hhlanp = '2920' THEN 'Tagalog'\r\n             WHEN hhlanp = '4500' THEN 'Arabic'\r\n             ELSE 'Other'\r\n           END AS hhlanp_mapped,\r\n           COUNT(*) AS count_per_code,\r\n           DENSE_RANK() OVER (PARTITION BY yoep ORDER BY COUNT(*) DESC) AS row_num\r\n    FROM data\r\n    WHERE hhlanp NOT IN ('9500', 'N') and yoep=2011\r\n    GROUP BY yoep, hhlanp_mapped\r\n  ) AS subquery\r\n  WHERE row_num <= 5 OR hhlanp_mapped = 'Other'\r\n  GROUP BY yoep, hhlanp_mapped\r\n) AS subquery2\r\nGROUP BY hhlanp_mapped, count_per_code",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Proportion of languages in non-english speaking households in 2011",
+      "transparent": true,
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "${DS_MYSQL}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "0.033672670321064996": {
+                  "color": "purple",
+                  "index": 2
+                },
+                "0.41660140955364133": {
+                  "color": "green",
+                  "index": 1
+                },
+                "0.4678935003915427": {
+                  "color": "semi-dark-yellow",
+                  "index": 0
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 37
+      },
+      "id": 20,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "allValues"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "mysql",
+            "uid": "${DS_MYSQL}"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT hhlanp_mapped, \r\n       CAST(count_per_code AS FLOAT)/5108 AS proportion\r\nFROM (\r\n  SELECT hhlanp_mapped, \r\n         SUM(count_per_code) AS count_per_code\r\n  FROM (\r\n    SELECT yoep,\r\n           CASE\r\n             WHEN hhlanp = '1200' THEN 'Spanish'\r\n             WHEN hhlanp = '1970' THEN 'Chinese'\r\n             WHEN hhlanp = '4500' THEN 'Arabic'\r\n             WHEN hhlanp = '1350' THEN 'Hindi'\r\n             ELSE 'Other'\r\n           END AS hhlanp_mapped,\r\n           COUNT(*) AS count_per_code,\r\n           DENSE_RANK() OVER (PARTITION BY yoep ORDER BY COUNT(*) DESC) AS row_num\r\n    FROM data\r\n    WHERE hhlanp NOT IN ('9500', 'N') and yoep=2021\r\n    GROUP BY yoep, hhlanp_mapped\r\n  ) AS subquery\r\n  WHERE row_num <= 5 OR hhlanp_mapped = 'Other'\r\n  GROUP BY yoep, hhlanp_mapped\r\n) AS subquery2\r\nGROUP BY hhlanp_mapped, count_per_code",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Proportion of languages in non-english speaking households in 2021",
+      "transparent": true,
+      "type": "piechart"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "1",
+          "value": "1"
+        },
+        "description": "1 - Men, 2 - Women",
+        "hide": 0,
+        "name": "Sex",
+        "options": [
+          {
+            "selected": true,
+            "text": "1",
+            "value": "1"
+          }
+        ],
+        "query": "1",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "25",
+          "value": "25"
+        },
+        "description": "Value between 0 and 99",
+        "hide": 0,
+        "name": "Age",
+        "options": [
+          {
+            "selected": true,
+            "text": "25",
+            "value": "25"
+          }
+        ],
+        "query": "25",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "22",
+          "value": "22"
+        },
+        "description": "\"0\": \"N/A (less than 3 years old)\", \"1\": \"No schooling completed\", \"2\": \"Nursery school, preschool\", \"3\": \"Kindergarten\", \"4\": \"Grade 1\", \"5\": \"Grade 2\", \"6\": \"Grade 3\", \"7\": \"Grade 4\", \"8\": \"Grade 5\", \"9\": \"Grade 6\", \"10\": \"Grade 7\", \"11\": \"Grade 8\", \"12\": \"Grade 9\", \"13\": \"Grade 10\", \"14\": \"Grade 11\", \"15\": \"12th grade - no diploma\", \"16\": \"Regular high school diploma\", \"17\": \"GED or alternative credential\", \"18\": \"Some college, but less than 1 year\", \"19\": \"1 or more years of college credit, no degree\", \"20\": \"Associate's degree\", \"21\": \"Bachelor's degree\", \"22\": \"Master's degree\", \"23\": \"Professional degree beyond a bachelor's degree\", \"24\": \"Doctorate degree\"",
+        "hide": 0,
+        "name": "Education",
+        "options": [
+          {
+            "selected": true,
+            "text": "22",
+            "value": "22"
+          }
+        ],
+        "query": "22",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "1",
+          "value": "1"
+        },
+        "description": "\"1\": \"Married\", \"2\": \"Widowed\", \"3\": \"Divorced\", \"4\": \"Separated\", \"5\": \"Never married or under 15 years old\"",
+        "hide": 0,
+        "name": "Marital_status",
+        "options": [
+          {
+            "selected": true,
+            "text": "1",
+            "value": "1"
+          }
+        ],
+        "query": "1",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "2011-01-01T00:00:00.000Z",
+    "to": "2021-01-01T00:00:00.000Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "US Census",
+  "uid": "2SUxkfLVz",
+  "version": 20,
+  "weekStart": ""
+}

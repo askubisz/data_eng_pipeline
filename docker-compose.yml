@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+   scc413-nifi:
+      image: apache/nifi:1.17.0
+      ports:
+        - '8443:8443'
+      environment:
+        - SINGLE_USER_CREDENTIALS_USERNAME=user
+        - SINGLE_USER_CREDENTIALS_PASSWORD=user123456789
+      volumes:
+        - ./nifi/data:/home/nifi
+        - ./nifi/database_repository:/opt/nifi/nifi-current/database_repository
+        - ./nifi/flowfile_repository:/opt/nifi/nifi-current/flowfile_repository
+        - ./nifi/content_repository:/opt/nifi/nifi-current/content_repository
+        - ./nifi/provenance_repository:/opt/nifi/nifi-current/provenance_repository
+        - ./nifi/state:/opt/nifi/nifi-current/state
+        - ./nifi/logs:/opt/nifi/nifi-current/logs
+        - ./nifi/conf:/opt/nifi/nifi-current/conf
+   scc413-grafana:
+      image: grafana/grafana:8.5.22
+      hostname: scc413-grafana
+      container_name: scc413-grafana
+      user: '0'
+      ports:
+          - '3000:3000'
+      volumes:
+         - ./grafana/var/lib:/var/lib/grafana
+   scc413-mysqldb:
+      image: mysql:8.0
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: example
+      volumes:
+        - ./mysql/db.sql:/docker-entrypoint-initdb.d/db.sql
+        - ./db_data:/var/lib/mysql
+   scc413-adminer:
+      image: adminer:4.8.1
+      restart: always
+      ports:
+         - 8080:8080
+   spark:
+    image: docker.io/bitnami/spark:3.3
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+    ports:
+      - '8081:8080'
+    volumes:
+      - ./spark/models:/opt/bitnami/spark/models
+      - ./spark/mysql-connector-j-8.0.32.jar:/opt/bitnami/spark/jars/mysql-connector-j-8.0.32.jar
